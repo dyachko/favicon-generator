@@ -1,6 +1,6 @@
-
 body {
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
     height: 100vh;
@@ -8,26 +8,30 @@ body {
     margin: 0;
 }
 
-#upload-btn {
+button {
     background-color: #4CAF50;
     color: white;
     padding: 10px 20px;
     border: none;
     cursor: pointer;
+    font-size: 16px;
+    border-radius: 5px;
+    margin: 10px;
+    transition: background-color 0.3s;
+}
+
+button:hover {
+    background-color: #45a049;
 }
 
 #editor {
     display: none;
     flex-direction: column;
     align-items: center;
+    margin-top: 20px;
 }
 
-#download-btn {
-    display: none;
-    background-color: #4CAF50;
-    color: white;
-    padding: 10px 20px;
-    border: none;
-    cursor: pointer;
-    margin-top: 20px;
+#canvas {
+    border: 1px solid #ccc;
+    margin-bottom: 20px;
 }
