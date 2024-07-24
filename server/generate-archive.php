@@ -1,4 +1,3 @@
-
 <?php
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $data = $_POST['image'];
@@ -22,21 +21,22 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
         $zip = new ZipArchive();
         $zipFile = tempnam(sys_get_temp_dir(), 'zip');
-        $zip->open($zipFile, ZipArchive::CREATE);
+        if ($zip->open($zipFile, ZipArchive::CREATE) === TRUE) {
+            foreach ($sizes as $size) {
+                $zip->addFile("$dir/favicon-$size.png", "favicon-$size.png");
+            }
+            $zip->close();
 
-        foreach ($sizes as $size) {
-            $zip->addFile("$dir/favicon-$size.png", "favicon-$size.png");
+            header('Content-Type: application/zip');
+            header('Content-Disposition: attachment; filename="favicon.zip"');
+            readfile($zipFile);
+
+            unlink($zipFile);
+            array_map('unlink', glob("$dir/*.*"));
+            rmdir($dir);
+        } else {
+            echo 'Ошибка при создании архива.';
         }
-
-        $zip->close();
-
-        header('Content-Type: application/zip');
-        header('Content-Disposition: attachment; filename="favicon.zip"');
-        readfile($zipFile);
-
-        unlink($zipFile);
-        array_map('unlink', glob("$dir/*.*"));
-        rmdir($dir);
     } else {
         echo 'Ошибка при обработке изображения.';
     }
