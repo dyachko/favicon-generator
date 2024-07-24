@@ -1,4 +1,3 @@
-
 document.addEventListener('DOMContentLoaded', () => {
     const uploadBtn = document.getElementById('upload-btn');
     const editor = document.getElementById('editor');
@@ -64,6 +63,7 @@ document.addEventListener('DOMContentLoaded', () => {
             document.body.appendChild(a);
             a.click();
             document.body.removeChild(a);
-        });
+        })
+        .catch(err => console.error('Ошибка:', err));
     });
 });
